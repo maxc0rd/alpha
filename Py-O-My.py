@@ -1,4 +1,5 @@
 
+# Calculator by Max Lekontsev
 print("\033[0;30;47m This TestCalc is made by Max Lekontsev in scope of Hillel's L3 homework.\033[0m"
       "\n\n\033[0;30;47m All rights reserved :)\033[0m")
 operation = ""
