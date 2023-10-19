@@ -1,5 +1,5 @@
 # 1. Дано рядок.
-# my_str = "qwert5tse"
+my_str = "qwert5tse"
 #      a. виведіть третій символ цього рядка.
 # print(my_str[2])
 #      b. виведіть передостанній символ цього рядка.
@@ -31,8 +31,8 @@
 # 3. Користувач вводить окремо рядок `s` та один символ `ch`. Необхідно здійснити пошук у рядку `s` всіх символів `ch`.
 # Для вирішення можна використовувати тільки функцію `find` (rfind), оператори `if` та `for` (while).
 
-s = input("Enter a string: ")
-ch = input("Enter one symbol: ")
+# s = input("Enter a string: ")
+# ch = input("Enter one symbol: ")
 
 # Вариант 1:
 # for m in s:
