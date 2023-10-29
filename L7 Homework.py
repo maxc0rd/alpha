@@ -88,27 +88,81 @@
 # Наприклад "43 більше ніж 34, але менше ніж 56". Знайти суму ВСІХ ЧИСЕЛ (А НЕ ЦИФР) у цьому рядку.
 # Для цього прикладу відповідь - 133. (використовуйте split та перевірку isdigit)
 #
-my_str = "43 більше ніж 34, але менше ніж 56"
-
-my_str = my_str.split()
-print(my_str)
-
+# my_str = "43 більше ніж 34, але менше ніж 56"
+# str2 = ""
+# total = 0
+# my_list = []
+#
+# my_str = my_str.split()
+# for i in my_str:
+#     if i.isdigit() is True:
+#         my_str.pop(my_str.index(i)) and my_list.append(i)
+#     else:
+#         for n in i:
+#             if n.isdigit() is True:
+#                 str2 = str2 + n
+# my_list.append(str2)
+# for sum in my_list:
+#     total = total + int(sum)
+# print(total)
 
 # 7. Наведено список чисел. Визначте, скільки в цьому списку елементів,
 # які більше суми двох своїх сусідів (ліворуч і праворуч), і НАДРУКАЙТЕ КІЛЬКІСТЬ таких елементів.
 # Останні елементи списку ніколи не враховуються, оскільки у них недостатньо сусідів.
 # Для списку [2,4,1,5,3,9,0,7] відповіддю буде 3, тому що 4> 2+1, 5> 1+3, 9>3+0.
 #
+# my_list = [2, 4, 1, 5, 3, 9, 0, 7]
+# total = []
+# for x in my_list[1:-1]:
+#     if x > (my_list[my_list.index(x) - 1] + my_list[my_list.index(x) + 1]):
+#         total.append(x)
+# print(len(total))
+
 # 8. Даний список my_list, в якому можуть бути як рядки (type str), так і цілі числа (type int).
 # Наприклад [1, 2, 3, "11", "22", 33]
 # Створити новий список у який помістити лише рядки з my_list.
 #
+# my_list = [1, 2, 3, "11", "22", 33]
+# new_list = []
+#
+# for check in my_list:
+#     if type(check) is str:
+#         new_list.append(check)
+# print(new_list)
+
 # 9. Дано рядок my_str. Створити список в який помістити символи з my_str,
 # які зустрічаються в рядку ТІЛЬКИ ОДИН разів.
 #
+# my_str = "Hello Hillel"
+# my_list = []
+#
+# for x in my_str:
+#     if my_str.count(x) == 1:
+#         my_list.append(x)
+#
+# print(my_list)
+
 # 10. Дано два рядки. Створити список, у якому помістити ті символи,
 # які є в обох рядках хоча б один раз.
 #
+# str1 = "Something"
+# str2 = "Someone"
+# my_list = []
+#
+# for match in str1:
+#     if match in str2:
+#         my_list.append(match)
+# print(my_list)
+
 # 11. Дано два рядки. Створити список, у якому помістити ті символи, які є в обох рядках,
 # але в кожній ТІЛЬКИ З одного разу.
 # Приклад: для рядків "aaaasdf1" та "asdfff2" відповідь ["s", "d"], т.к. ці символи є в кожному рядку по одному разу
+#
+# str1 = "aaaasdf1"
+# str2 = "asdfff2"
+# my_list = []
+#
+# for match in str1:
+#     if match in str2 and str1.count(match) == 1 and str2.count(match) == 1:
+#         my_list.append(match)
+# print(my_list)
