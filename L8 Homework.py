@@ -92,8 +92,8 @@ my_dict_1 = {
 }
 
 my_dict_2 = {
-    "firstname": "John",
-    "lastname": "Doe",
+    "firstname": "Ben",
+    "lastname": "Kingsly",
     "city": "London"
 }
 
@@ -138,3 +138,36 @@ my_dict_2 = {
 # якщо ключ є у двох словниках - помістити пару {ключ: [значення_з_першого_словника, значення_з_другого_словника]},
 #
 # {1:1, 2:2}, {11:11, 2:22} ---> {1:1, 11:11, 2:[2, 22]}
+#
+some_dict = {}
+
+for a, b in my_dict_1.items():
+    if a in my_dict_2:
+        some_dict.update({a: b})
+# print(some_dict)
+        for c, d in my_dict_2.items():
+            if c not in my_dict_1:
+
+#         for c, d in my_dict_2.items():
+#             if c in my_dict_1:
+#                 some_dict.update({c: d+b})
+#
+# print(some_dict)
+
+# + -
+# some_dict = {}
+#
+# for a, b in my_dict_1.items():
+#     if a not in my_dict_2:
+#         some_dict.update({a: b})
+#         for c, d in my_dict_2.items():
+#             if c in my_dict_1:
+#                 some_dict.update({c: d+b})
+#
+# print(some_dict)
+
+
+# for match in str1:
+#     if match in str2 and str1.count(match) == 1 and str2.count(match) == 1:
+#         my_list.append(match)
+# print(my_list)
