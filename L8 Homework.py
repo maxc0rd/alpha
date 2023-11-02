@@ -1,15 +1,17 @@
 # 1. Наведено список рядків my_list. Створити новий список до якого помістити елементи з my_list за таким правилом:
 # Якщо рядок стоїть на непарному місці my_list, то його замінити на перевернутий рядок. "qwe" на "ewq".
 # Якщо на парному – залишити без зміни. Завдання зробити за допомогою enumerate або range.
-# ???
+#
 # my_list = ['abc', 'def', 'ghi', 'jkl', 'mno']
-# # new_list = []
 # new_list = []
+#
+# for index in range(len(my_list)):
+#     if index % 2 != 0:
+#         new_list.append(my_list[index][::-1])
+#     else:
+#         new_list.append(my_list[index])
+#
 # print(new_list)
-# # print(len(my_list[1::2]))
-# for x in range(len(my_list)):
-#     new_list.append(x)
-
 
 # 2. Наведено список рядків my_list. Створити новий список до якого помістити елементи my_list
 # у яких перший символ - буква "a".
