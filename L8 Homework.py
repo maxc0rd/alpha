@@ -85,17 +85,17 @@
 
 # 5) Дано два словники my_dict_1 і my_dict_2.
 #
-my_dict_1 = {
-    "firstname": "John",
-    "lastname": "Doe",
-    "country": "UK"
-}
-
-my_dict_2 = {
-    "firstname": "Ben",
-    "lastname": "Kingsly",
-    "city": "London"
-}
+# my_dict_1 = {
+#     "firstname": "John",
+#     "lastname": "Doe",
+#     "country": "UK"
+# }
+#
+# my_dict_2 = {
+#     "firstname": "Ben",
+#     "lastname": "Kingsly",
+#     "city": "London"
+# }
 
 # а) Створити список із ключів, які є в обох словниках.
 #
@@ -139,35 +139,14 @@ my_dict_2 = {
 #
 # {1:1, 2:2}, {11:11, 2:22} ---> {1:1, 11:11, 2:[2, 22]}
 #
-some_dict = {}
-
-for a, b in my_dict_1.items():
-    if a in my_dict_2:
-        some_dict.update({a: b})
-# print(some_dict)
-        for c, d in my_dict_2.items():
-            if c not in my_dict_1:
-
-#         for c, d in my_dict_2.items():
-#             if c in my_dict_1:
-#                 some_dict.update({c: d+b})
-#
-# print(some_dict)
-
-# + -
 # some_dict = {}
 #
 # for a, b in my_dict_1.items():
-#     if a not in my_dict_2:
-#         some_dict.update({a: b})
-#         for c, d in my_dict_2.items():
-#             if c in my_dict_1:
-#                 some_dict.update({c: d+b})
+#     for c, d in my_dict_2.items():
+#         if a not in my_dict_2 and c not in my_dict_1:
+#             some_dict.update({a: b})
+#             some_dict.update({c: d})
+#         if a == c:
+#             some_dict.update({c: [b, d]})
 #
 # print(some_dict)
-
-
-# for match in str1:
-#     if match in str2 and str1.count(match) == 1 and str2.count(match) == 1:
-#         my_list.append(match)
-# print(my_list)
