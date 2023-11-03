@@ -139,7 +139,29 @@
 #
 # names = ["king", "miller", "kean"]
 # domains = ["net", "com", "ua"]
+
 # e_mail = create_email(domains, names)
+
 # print(e_mail)
 #
 # Відповідь: miller.249@sgdyyur.com
+#
+# import random
+#
+# names = ["cillian", "hamlet", "roy"]
+# domains = ["gov", "org", "com"]
+# new_list = []
+#
+#
+# def gen_email_addr(name, domain):
+#     for key in range(ord("a"), ord("z") + 1):
+#         new_list.append(chr(key))
+#     x = random.choices(new_list, k=random.randint(5, 7))
+#     gen = random.choice(name) + "." + str(random.randint(100, 999)) + "@" + "".join(x) + "." + random.choice(domain)
+#
+#     return gen
+#
+#
+# e_mail = gen_email_addr(names, domains)
+#
+# print(e_mail)
