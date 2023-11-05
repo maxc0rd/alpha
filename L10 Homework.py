@@ -64,3 +64,30 @@
 # у яких date_original - це дата з рядка (якщо є),
 # а date_modified - ця ж дата, представлена у форматі "dd/mm/yyyy" (d-день, m-місяць, y-рік)
 # Наприклад [{"date_original": "8th February 1828", "date_modified": 08/02/1828}, ...]
+#
+# from datetime import datetime
+#
+# result = []
+#
+#
+# def reading_file_dict_dates(filename):
+#     with open(filename, "r") as temp_file:
+#         data = temp_file.readlines()
+#         for i in data:
+#             if " - " in i:
+#                 orig_date = i.split(" - ")[0]
+#                 mod_date = orig_date.replace(" ", "/")
+#                 mod_date = mod_date.replace("1st", "1")
+#                 mod_date = mod_date.replace("nd", "")
+#                 mod_date = mod_date.replace("rd", "")
+#                 mod_date = mod_date.replace("th", "")
+#                 # print(mod_date)
+#                 result.append(dict(date_original=orig_date, date_modified=str(datetime.strftime(datetime.strptime(mod_date, "%d/%B/%Y"), '%d-%m-%Y'))))
+#     for x in result:
+#         for y in x:
+#             x["date_modified"] = x["date_modified"].replace("-", "/")
+#
+#     return result
+#
+#
+# print(reading_file_dict_dates("authors.txt"))
