@@ -41,8 +41,20 @@
 # у яких date - це дата з рядка (якщо є),
 # Наприклад [{"date": "1st January 1919"}, {"date": "8th February 1828"}, ...]
 #
-
-
+# result = []
+#
+#
+# def reading_file_dict_dates(filename):
+#     with open(filename, "r") as temp_file:
+#         data = temp_file.readlines()
+#         for i in data:
+#             if " - " in i:
+#                 result.append(dict(date=i.split(" - ")[0]))
+#
+#     return result
+#
+#
+# print(reading_file_dict_dates("authors.txt"))
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #
