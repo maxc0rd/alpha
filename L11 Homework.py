@@ -11,7 +11,7 @@ import os
 def create_dirs_list(dirname: str) -> list:
 
     dirs_list = os.listdir(dirname)
-    for dirs in dirs_list:
+    for dirs in dirs_list.copy():
         if not os.path.isdir(os.path.join(dirname, dirs)):
             dirs_list.remove(dirs)
 
@@ -21,7 +21,7 @@ def create_dirs_list(dirname: str) -> list:
 def create_files_list(dirname: str) -> list:
 
     files_list = os.listdir(dirname)
-    for file in files_list:
+    for file in files_list.copy():
         if not os.path.isfile(os.path.join(dirname, file)):
             files_list.remove(file)
 
@@ -37,7 +37,6 @@ def files_dirs_dict(dirname: str) -> dict:
 
 fd_dict = files_dirs_dict("Folder1")
 print(fd_dict)
-print(fd_dict["filenames"])
 
 # 2. Написати функцію, яка отримує два параметри – словник, описаний у пункті 1
 # і значення булю (True/False) - можна зробити за замовчуванням.
@@ -46,14 +45,18 @@ print(fd_dict["filenames"])
 #
 
 
-# def sorting_dict(some_dict: dict, boolean: bool = False) -> dict:
-#
-#     if boolean:
-#         some_dict["filenames"].sort
-#
-#     return dict_sort
-#
-# print(sorting_dict(fd_dict, True))
+def sorting_dict(some_dict: dict, boolean: bool = False) -> dict:
+
+    temp_dict = some_dict.copy()
+    if boolean:
+        temp_dict["filenames"].sort()
+    else:
+        temp_dict["dirnames"].sort(reverse=True)
+
+    return temp_dict
+
+
+print(sorting_dict(fd_dict, True))
 
 # 3. Написати функцію, яка отримує два параметри - словник, описаний у пункті 1 та рядок, який може бути
 # або ім'ям файлу, або ім'ям папки. (У імені файлу має бути точка).
@@ -61,6 +64,19 @@ print(fd_dict["filenames"])
 # та повернути оновлений словник.
 #
 
+
+def updated_dict(same_dict: dict, some_str: str) -> dict:
+
+    upd_dict = same_dict.copy()
+    if "." in some_str:
+        upd_dict["filenames"].append(some_str)
+    else:
+        upd_dict["dirnames"].append(some_str)
+
+    return upd_dict
+
+
+print(updated_dict(fd_dict, "find.txt"))
 
 # 4* (*здавати не обов'язково).
 # Написати функцію, яка отримує два параметри - словник, описаний у пункті 1 та ім'я директорії.
