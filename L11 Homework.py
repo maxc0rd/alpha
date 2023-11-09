@@ -84,3 +84,36 @@ print(updated_dict(fd_dict, "find.txt"))
 # якщо треба, створює потрібні папки та порожні файли, відповідно до структури словника.
 #
 
+
+def check_files(fcheck_dict, f_dir):
+
+    add_these_files = []
+    for file in fcheck_dict["filenames"]:
+        if file not in os.listdir(f_dir):
+            add_these_files.append(file)
+
+    return add_these_files
+
+
+def check_dirs(dcheck_dict, d_dir):
+
+    add_these_dirs = []
+    for dirs in dcheck_dict["dirnames"]:
+        if dirs not in os.listdir(d_dir):
+            add_these_dirs.append(dirs)
+
+    return add_these_dirs
+
+
+def update_fs_dict(first_dict, name_dir = "Folder1"):
+
+    files_to_create = check_files(first_dict, name_dir)
+    dirs_to_create = check_dirs(first_dict, name_dir)
+    for i in files_to_create:
+
+    os.makedirs(name, exist_ok=True)
+
+    return None
+
+
+print(update_fs_dict(fd_dict, "Folder1"))
