@@ -105,15 +105,18 @@ def check_dirs(dcheck_dict, d_dir):
     return add_these_dirs
 
 
-def update_fs_dict(first_dict, name_dir = "Folder1"):
+def update_fs_dict(first_dict, name_dir="Folder1"):
 
     files_to_create = check_files(first_dict, name_dir)
     dirs_to_create = check_dirs(first_dict, name_dir)
     for i in files_to_create:
+        with open(os.path.join(name_dir, i), "w") as cr_file:
+            pass
+    for k in dirs_to_create:
+        os.makedirs(k)
 
-    os.makedirs(name, exist_ok=True)
-
-    return None
+    return f"files {files_to_create} and folders {dirs_to_create}"
 
 
-print(update_fs_dict(fd_dict, "Folder1"))
+for_message = update_fs_dict(fd_dict, "Folder1")
+print(f"The following {for_message} have been created")
