@@ -27,11 +27,18 @@ class File:
                 lastnames.append(i.split("\t")[1])
 
         return lastnames
-    #
-    #
-    # print(reading_file_only_lastnames("names.txt"))
 
-# print(reading_file_as_list("domains.txt"))
+    def reading_file_dict_dates(self):
+
+        dict_dates = []
+
+        with open(self.filename, "r") as temp_file:
+            data = temp_file.readlines()
+            for i in data:
+                if " - " in i:
+                    dict_dates.append(dict(date=i.split(" - ")[0]))
+
+        return dict_dates
 
 # 1. Ініціалізація класу з одним параметром – ім'я файлу.
 #
@@ -62,7 +69,9 @@ print(second_names.reading_file_only_lastnames())
 # словників виду {"date": date} у яких date - це дата з рядка (якщо є),
 # Наприклад [{"date": "1st January 1919"}, {"date": "8th February 1828"}, ...]
 #
+date_list = File("authors.txt")
 
+print(date_list.reading_file_dict_dates())
 
 
 # 5* (*здавати не обов'язково).
