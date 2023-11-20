@@ -5,40 +5,38 @@ class File:
 
     def __init__(self, filename):
         self.filename = filename
-        self.read_file = self.reading_file()
 
-    def reading_file(self):
-
-        with open(self.filename, "r") as temp_file:
-            data = temp_file.readlines()
-
-        return data
-
-    def as_list(self):
+    def reading_file_as_list(self):
 
         result = []
 
-        for i in self.read_file:
-            result.append(i.strip(".\n"))
+        with open(self.filename, "r") as temp_file:
+            data = temp_file.readlines()
+            for i in data:
+                result.append(i.strip(".\n"))
 
         return result
 
-    def only_lastnames(self):
+    def reading_file_only_lastnames(self):
 
         lastnames = []
 
-        for i in self.read_file:
-            lastnames.append(i.split("\t")[1])
+        with open(self.filename, "r") as temp_file:
+            data = temp_file.readlines()
+            for i in data:
+                lastnames.append(i.split("\t")[1])
 
         return lastnames
 
-    def dict_dates(self):
+    def reading_file_dict_dates(self):
 
         dict_dates = []
 
-        for i in self.read_file:
-            if " - " in i:
-                dict_dates.append(dict(date=i.split(" - ")[0]))
+        with open(self.filename, "r") as temp_file:
+            data = temp_file.readlines()
+            for i in data:
+                if " - " in i:
+                    dict_dates.append(dict(date=i.split(" - ")[0]))
 
         return dict_dates
 
@@ -54,7 +52,7 @@ print(test_file.filename)
 # у вигляді списку рядків (назви повертати без крапки)
 #
 
-test_file.all_domains = test_file.as_list()
+test_file.all_domains = test_file.reading_file_as_list()
 
 print(test_file.all_domains)
 
@@ -65,7 +63,7 @@ print(test_file.all_domains)
 
 second_names = File("names.txt")
 
-print(second_names.only_lastnames())
+print(second_names.reading_file_only_lastnames())
 
 # 4. Написати метод екземпляра класу, який повертає список
 # словників виду {"date": date} у яких date - це дата з рядка (якщо є),
@@ -74,7 +72,7 @@ print(second_names.only_lastnames())
 
 date_list = File("authors.txt")
 
-print(date_list.dict_dates())
+print(date_list.reading_file_dict_dates())
 
 # 5* (*здавати не обов'язково).
 # Написати метод екземпляра класу, отримує у вигляді параметра ім'я файлу (authors.txt) та повертає список
