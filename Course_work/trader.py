@@ -81,3 +81,6 @@ if args["operation"] == "NEXT":
 
 if args["operation"] == "AVAILABLE":
     print(f"USD {whats_inside.get_usd()} UAH {whats_inside.get_uah()}")
+
+if args["operation"] == "RESTART":
+    whats_inside.rw_json()
