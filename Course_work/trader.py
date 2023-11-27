@@ -69,6 +69,8 @@ class GetFromJson:
             json.dump(exp_old, new_state, indent=2)
 
 
+    # def avail(self):
+
 whats_inside = GetFromJson("config.json")
 
 if args["operation"] == "RATE":
@@ -76,3 +78,6 @@ if args["operation"] == "RATE":
 
 if args["operation"] == "NEXT":
     whats_inside.randomize_rate()
+
+if args["operation"] == "AVAILABLE":
+    print(f"USD {whats_inside.get_usd()} UAH {whats_inside.get_uah()}")
