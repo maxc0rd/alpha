@@ -70,8 +70,12 @@ class GetFromJson:
 
     def buy_usd(self, usd_amount):
 
-        self.write_in_state(round(self.get_usd() + int(usd_amount),2), "usd_balance")
-        self.write_in_state(round(self.get_uah() - self.get_rate() * int(usd_amount),2), "uah_balance")
+        required_uah_amount = self.get_rate() * int(usd_amount)
+        if self.get_uah() < required_uah_amount:
+            return print(f"UNAVAILABLE, REQUIRED BALANCE UAH {required_uah_amount}, AVAILABLE {self.get_uah()}")
+        else:
+            self.write_in_state(round(self.get_usd() + int(usd_amount), 2), "usd_balance")
+            self.write_in_state(round(self.get_uah() - required_uah_amount, 2), "uah_balance")
 
 
 whats_inside = GetFromJson("config.json")
