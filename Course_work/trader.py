@@ -68,8 +68,11 @@ class GetFromJson:
         with open("state.json", "w") as new_state:
             json.dump(exp_old, new_state, indent=2)
 
+    def buy_usd(self, usd_amount):
 
-    # def avail(self):
+        self.write_in_state(round(self.get_usd() + int(usd_amount),2), "usd_balance")
+        self.write_in_state(round(self.get_uah() - self.get_rate() * int(usd_amount),2), "uah_balance")
+
 
 whats_inside = GetFromJson("config.json")
 
@@ -84,3 +87,6 @@ if args["operation"] == "AVAILABLE":
 
 if args["operation"] == "RESTART":
     whats_inside.rw_json()
+
+if args["operation"] == "BUY":
+    whats_inside.buy_usd(args["amount"])
