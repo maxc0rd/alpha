@@ -161,3 +161,4 @@ elif args["operation"].upper() == "SELL":
 else:
     print(":( Not supported\nChoose one of the following arguments:\n"
           "RATE\nNEXT\nAVAILABLE\nRESTART\nBUY XXX\nBUY ALL\nSELL XXX\nSELL ALL")
+
