@@ -18,6 +18,12 @@ class GetFromJson:
 
     def __init__(self, json_path):
         self.json_path = json_path
+        self.history = "history.txt"
+        # self.update_history()
+
+    def update_history(self, action):
+        with open(self.history, "a") as history_file:
+            history_file.write(action)
 
     def rw_json(self):
 
@@ -36,6 +42,7 @@ class GetFromJson:
     def get_rate(self):
 
         current_rate = self.read_state()["the_rate"]
+        # self.update_history(f"Get CURRENT rate -> {current_rate}\n")
 
         return current_rate
 
@@ -57,7 +64,9 @@ class GetFromJson:
     def randomize_rate(self):
 
         random_rate = random.uniform(self.get_rate() - self.get_delta(), self.get_rate() + self.get_delta())
-        self.write_in_state(round(random_rate, 2), "the_rate")
+        upd_rate = round(random_rate, 2)
+        self.write_in_state(upd_rate, "the_rate")
+        self.update_history(f"Get NEXT rate -> {upd_rate}\n")
 
     def write_in_state(self, write_rate, key_rate):
 
@@ -72,18 +81,29 @@ class GetFromJson:
 
         if usd_amount.upper() == "ALL":
             if self.get_uah() == 0:
+                self.update_history("Unsuccessful attempt to exchange ALL available UAH to USD -> "
+                                    "CURRENT UAH BALANCE 0.00\n")
                 return print(":( NOT POSSIBLE. CURRENT UAH BALANCE 0.00")
             else:
                 usd_all_in = self.get_uah() / self.get_rate()
-                self.write_in_state(round(self.get_usd() + usd_all_in, 2), "usd_balance")
+                usd_balance_after_all = self.get_usd() + usd_all_in
+                self.write_in_state(round(usd_balance_after_all, 2), "usd_balance")
                 self.write_in_state(0, "uah_balance")
+                self.update_history(f"Successful attempt to exchange ALL available UAH to USD -> "
+                                    f"new balance {usd_balance_after_all} USD 0.00 UAH")
         else:
             required_uah_amount = round(self.get_rate() * float(usd_amount), 2)
             if self.get_uah() < required_uah_amount:
-                return print(f"UNAVAILABLE, REQUIRED BALANCE UAH {required_uah_amount}, AVAILABLE {self.get_uah()}")
+                low_uah_balance = f"UNAVAILABLE, REQUIRED BALANCE UAH {required_uah_amount}, AVAILABLE {self.get_uah()}"
+                self.update_history(f"Unsuccessful attempt to buy {usd_amount} USD -> {low_uah_balance}\n")
+                return print(low_uah_balance)
             else:
-                self.write_in_state(round(self.get_usd() + float(usd_amount), 2), "usd_balance")
-                self.write_in_state(round(self.get_uah() - required_uah_amount, 2), "uah_balance")
+                usd_balance_after = self.get_usd() + float(usd_amount)
+                uah_balance_after = self.get_uah() - required_uah_amount
+                self.write_in_state(round(usd_balance_after, 2), "usd_balance")
+                self.write_in_state(round(uah_balance_after, 2), "uah_balance")
+                self.update_history(f"Successful attempt to buy {usd_amount} USD -> "
+                                    f"new balance {usd_balance_after} USD {uah_balance_after} UAH\n")
 
     def sell_usd(self, usd_amount):
 
@@ -106,13 +126,17 @@ class GetFromJson:
 whats_inside = GetFromJson("config.json")
 
 if args["operation"].upper() == "RATE":
-    print(whats_inside.get_rate())
+    online_rate = whats_inside.get_rate()
+    whats_inside.update_history(f"Get CURRENT rate -> {online_rate}\n")
+    print(online_rate)
 
 if args["operation"].upper() == "NEXT":
     whats_inside.randomize_rate()
 
 if args["operation"].upper() == "AVAILABLE":
-    print(f"USD {whats_inside.get_usd()} UAH {whats_inside.get_uah()}")
+    available_balance = f"USD {whats_inside.get_usd()} UAH {whats_inside.get_uah()}"
+    whats_inside.update_history(f"Get AVAILABLE balance -> {available_balance}\n")
+    print(available_balance)
 
 if args["operation"].upper() == "RESTART":
     whats_inside.rw_json()
