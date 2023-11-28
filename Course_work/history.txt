@@ -1,0 +1,4 @@
+Currency trader powered by Max Lekontsev
+
+Are you ready for some trading? :)
+

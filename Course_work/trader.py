@@ -1,17 +1,13 @@
 from argparse import ArgumentParser
 import json
-import os
 import random
 
 args = ArgumentParser()
-# default надо?
-# help надо?
+
 args.add_argument("operation", type=str)
 args.add_argument("amount", type=str, nargs='?')
 
 args = vars(args.parse_args())
-
-print(args)
 
 
 class GetFromJson:
@@ -46,7 +42,6 @@ class GetFromJson:
     def get_rate(self):
 
         current_rate = self.read_state()["the_rate"]
-        # self.update_history(f"Get CURRENT rate -> {current_rate}\n")
 
         return current_rate
 
@@ -97,15 +92,19 @@ class GetFromJson:
                                     f"new balance {usd_balance_after_all} USD 0.00 UAH\n")
         else:
             required_uah_amount = round(self.get_rate() * float(usd_amount), 2)
-            if self.get_uah() < required_uah_amount:
+            if float(usd_amount) == 0:
+                self.update_history(f"Unsuccessful attempt to buy {usd_amount} USD -> "
+                                    f"Amount should be bigger than 0\n")
+                return print("You can't buy 0 USD !")
+            elif self.get_uah() < required_uah_amount:
                 low_uah_balance = f"UNAVAILABLE, REQUIRED BALANCE UAH {required_uah_amount}, AVAILABLE {self.get_uah()}"
                 self.update_history(f"Unsuccessful attempt to buy {usd_amount} USD -> {low_uah_balance}\n")
                 return print(low_uah_balance)
             else:
-                usd_balance_after = self.get_usd() + float(usd_amount)
-                uah_balance_after = self.get_uah() - required_uah_amount
-                self.write_in_state(round(usd_balance_after, 2), "usd_balance")
-                self.write_in_state(round(uah_balance_after, 2), "uah_balance")
+                usd_balance_after = round(self.get_usd() + float(usd_amount), 2)
+                uah_balance_after = round(self.get_uah() - required_uah_amount, 2)
+                self.write_in_state(usd_balance_after, "usd_balance")
+                self.write_in_state(uah_balance_after, "uah_balance")
                 self.update_history(f"Successful attempt to buy {usd_amount} USD -> "
                                     f"new balance {usd_balance_after} USD {uah_balance_after} UAH\n")
 
@@ -125,7 +124,11 @@ class GetFromJson:
                                     f"new balance {uah_balance_after_all} UAH 0.00 USD\n")
         else:
             required_usd_amount = round(self.get_rate() * float(usd_amount), 2)
-            if self.get_usd() < float(usd_amount):
+            if float(usd_amount) == 0:
+                self.update_history(f"Unsuccessful attempt to sell {usd_amount} USD -> "
+                                    f"Amount should be bigger than 0\n")
+                return print("You can't sell 0 USD !")
+            elif self.get_usd() < float(usd_amount):
                 low_usd_balance = f"UNAVAILABLE, REQUIRED BALANCE USD {usd_amount}, AVAILABLE {self.get_usd()}"
                 self.update_history(f"Unsuccessful attempt to sell {usd_amount} USD -> {low_usd_balance}\n")
                 return print(low_usd_balance)
@@ -144,25 +147,22 @@ if args["operation"].upper() == "RATE":
     online_rate = whats_inside.get_rate()
     whats_inside.update_history(f"Get CURRENT rate -> {online_rate}\n")
     print(online_rate)
-
-if args["operation"].upper() == "NEXT":
+elif args["operation"].upper() == "NEXT":
     whats_inside.randomize_rate()
-
-if args["operation"].upper() == "AVAILABLE":
+elif args["operation"].upper() == "AVAILABLE":
     available_balance = f"USD {whats_inside.get_usd()} UAH {whats_inside.get_uah()}"
     whats_inside.update_history(f"Get AVAILABLE balance -> {available_balance}\n")
     print(available_balance)
-
-if args["operation"].upper() == "RESTART":
+elif args["operation"].upper() == "RESTART":
     whats_inside.rw_json()
-
-if args["operation"].upper() == "BUY":
+elif args["operation"].upper() == "BUY":
     whats_inside.buy_usd(args["amount"])
-
-if args["operation"].upper() == "SELL":
+elif args["operation"].upper() == "SELL":
     whats_inside.sell_usd(args["amount"])
+else:
+    print(":( Not supported\nChoose one of the following arguments:\n"
+          "RATE\nNEXT\nAVAILABLE\nRESTART\nBUY XXX\nBUY ALL\nSELL XXX\nSELL ALL")
 
 # Можем покупать не только целые доллары (int -> float?) !!
 # Можем покупать не только целые гривны (int -> float?) !!
 # Почему в state.json один знак после запятой ?!
-# выдать сообщение, если buy all , а денег на счете ноль !
