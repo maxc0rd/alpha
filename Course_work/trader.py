@@ -70,7 +70,7 @@ class GetFromJson:
 
     def buy_usd(self, usd_amount):
 
-        if usd_amount == "ALL":
+        if usd_amount.upper() == "ALL":
             usd_all_in = self.get_uah() / self.get_rate()
             self.write_in_state(round(self.get_usd() + usd_all_in, 2), "usd_balance")
             self.write_in_state(0, "uah_balance")
@@ -84,7 +84,7 @@ class GetFromJson:
 
     def sell_usd(self, usd_amount):
 
-        if usd_amount == "ALL":
+        if usd_amount.upper() == "ALL":
             usd_all_in = self.get_usd() * self.get_rate()
             self.write_in_state(0, "usd_balance")
             self.write_in_state(round(self.get_uah() + usd_all_in, 2), "uah_balance")
@@ -120,3 +120,4 @@ if args["operation"].upper() == "SELL":
 # Можем покупать не только целые доллары (int -> float?) !!
 # Можем покупать не только целые гривны (int -> float?) !!
 # Почему в state.json один знак после запятой ?!
+# выдать сообщение, если buy all , а денег на счете ноль !
