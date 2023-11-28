@@ -15,7 +15,6 @@ class GetFromJson:
     def __init__(self, json_path):
         self.json_path = json_path
         self.history = "history.txt"
-        # self.update_history()
 
     def update_history(self, action):
         with open(self.history, "a") as history_file:
@@ -84,9 +83,9 @@ class GetFromJson:
                                     "CURRENT UAH BALANCE 0.00\n")
                 return print(":( NOT POSSIBLE. CURRENT UAH BALANCE 0.00")
             else:
-                usd_all_in = self.get_uah() / self.get_rate()
+                usd_all_in = round(self.get_uah() / self.get_rate(), 2)
                 usd_balance_after_all = self.get_usd() + usd_all_in
-                self.write_in_state(round(usd_balance_after_all, 2), "usd_balance")
+                self.write_in_state(usd_balance_after_all, "usd_balance")
                 self.write_in_state(0, "uah_balance")
                 self.update_history(f"Successful attempt to exchange ALL available UAH to USD -> "
                                     f"new balance {usd_balance_after_all} USD 0.00 UAH\n")
@@ -162,7 +161,3 @@ elif args["operation"].upper() == "SELL":
 else:
     print(":( Not supported\nChoose one of the following arguments:\n"
           "RATE\nNEXT\nAVAILABLE\nRESTART\nBUY XXX\nBUY ALL\nSELL XXX\nSELL ALL")
-
-# Можем покупать не только целые доллары (int -> float?) !!
-# Можем покупать не только целые гривны (int -> float?) !!
-# Почему в state.json один знак после запятой ?!
