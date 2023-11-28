@@ -71,9 +71,12 @@ class GetFromJson:
     def buy_usd(self, usd_amount):
 
         if usd_amount.upper() == "ALL":
-            usd_all_in = self.get_uah() / self.get_rate()
-            self.write_in_state(round(self.get_usd() + usd_all_in, 2), "usd_balance")
-            self.write_in_state(0, "uah_balance")
+            if self.get_uah() == 0:
+                return print(":( NOT POSSIBLE. CURRENT UAH BALANCE 0.00")
+            else:
+                usd_all_in = self.get_uah() / self.get_rate()
+                self.write_in_state(round(self.get_usd() + usd_all_in, 2), "usd_balance")
+                self.write_in_state(0, "uah_balance")
         else:
             required_uah_amount = round(self.get_rate() * float(usd_amount), 2)
             if self.get_uah() < required_uah_amount:
@@ -85,9 +88,12 @@ class GetFromJson:
     def sell_usd(self, usd_amount):
 
         if usd_amount.upper() == "ALL":
-            usd_all_in = self.get_usd() * self.get_rate()
-            self.write_in_state(0, "usd_balance")
-            self.write_in_state(round(self.get_uah() + usd_all_in, 2), "uah_balance")
+            if self.get_usd() == 0:
+                return print(":( NOT POSSIBLE. CURRENT USD BALANCE 0.00")
+            else:
+                usd_all_in = self.get_usd() * self.get_rate()
+                self.write_in_state(0, "usd_balance")
+                self.write_in_state(round(self.get_uah() + usd_all_in, 2), "uah_balance")
         else:
             required_usd_amount = round(self.get_rate() * float(usd_amount), 2)
             if self.get_usd() < float(usd_amount):
