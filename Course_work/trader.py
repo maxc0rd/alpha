@@ -99,22 +99,24 @@ class GetFromJson:
 
 whats_inside = GetFromJson("config.json")
 
-if args["operation"] == "RATE":
+if args["operation"].upper() == "RATE":
     print(whats_inside.get_rate())
 
-if args["operation"] == "NEXT":
+if args["operation"].upper() == "NEXT":
     whats_inside.randomize_rate()
 
-if args["operation"] == "AVAILABLE":
+if args["operation"].upper() == "AVAILABLE":
     print(f"USD {whats_inside.get_usd()} UAH {whats_inside.get_uah()}")
 
-if args["operation"] == "RESTART":
+if args["operation"].upper() == "RESTART":
     whats_inside.rw_json()
 
-if args["operation"] == "BUY":
+if args["operation"].upper() == "BUY":
     whats_inside.buy_usd(args["amount"])
+
+if args["operation"].upper() == "SELL":
+    whats_inside.sell_usd(args["amount"])
 
 # Можем покупать не только целые доллары (int -> float?) !!
 # Можем покупать не только целые гривны (int -> float?) !!
-if args["operation"] == "SELL":
-    whats_inside.sell_usd(args["amount"])
+# Почему в state.json один знак после запятой ?!
