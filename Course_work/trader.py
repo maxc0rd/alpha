@@ -31,6 +31,10 @@ class GetFromJson:
             pre_data = json.load(config_json)
         with open("state.json", "w") as copy_json:
             json.dump(pre_data, copy_json, indent=2)
+        restart_session = open(self.history, "w")
+        restart_session.write("Currency trader powered by Max Lekontsev\n\n"
+                              "> User has started a new trading session\n\n")
+        restart_session.close()
 
     def read_state(self):
         with open("state.json", "r") as read_state:
