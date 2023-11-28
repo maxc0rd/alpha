@@ -75,11 +75,11 @@ class GetFromJson:
             self.write_in_state(round(self.get_usd() + usd_all_in, 2), "usd_balance")
             self.write_in_state(0, "uah_balance")
         else:
-            required_uah_amount = self.get_rate() * int(usd_amount)
+            required_uah_amount = round(self.get_rate() * float(usd_amount), 2)
             if self.get_uah() < required_uah_amount:
                 return print(f"UNAVAILABLE, REQUIRED BALANCE UAH {required_uah_amount}, AVAILABLE {self.get_uah()}")
             else:
-                self.write_in_state(round(self.get_usd() + int(usd_amount), 2), "usd_balance")
+                self.write_in_state(round(self.get_usd() + float(usd_amount), 2), "usd_balance")
                 self.write_in_state(round(self.get_uah() - required_uah_amount, 2), "uah_balance")
 
     def sell_usd(self, usd_amount):
@@ -89,11 +89,11 @@ class GetFromJson:
             self.write_in_state(0, "usd_balance")
             self.write_in_state(round(self.get_uah() + usd_all_in, 2), "uah_balance")
         else:
-            required_usd_amount = self.get_rate() * int(usd_amount)
-            if self.get_usd() < int(usd_amount):
+            required_usd_amount = round(self.get_rate() * float(usd_amount), 2)
+            if self.get_usd() < float(usd_amount):
                 return print(f"UNAVAILABLE, REQUIRED BALANCE USD {usd_amount}, AVAILABLE {self.get_usd()}")
             else:
-                self.write_in_state(round(self.get_usd() - int(usd_amount), 2), "usd_balance")
+                self.write_in_state(round(self.get_usd() - float(usd_amount), 2), "usd_balance")
                 self.write_in_state(round(self.get_uah() + required_usd_amount, 2), "uah_balance")
 
 
