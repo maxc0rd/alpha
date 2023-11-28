@@ -82,6 +82,20 @@ class GetFromJson:
                 self.write_in_state(round(self.get_usd() + int(usd_amount), 2), "usd_balance")
                 self.write_in_state(round(self.get_uah() - required_uah_amount, 2), "uah_balance")
 
+    def sell_usd(self, usd_amount):
+
+        if usd_amount == "ALL":
+            usd_all_in = self.get_usd() * self.get_rate()
+            self.write_in_state(0, "usd_balance")
+            self.write_in_state(round(self.get_uah() + usd_all_in, 2), "uah_balance")
+        else:
+            required_usd_amount = self.get_rate() * int(usd_amount)
+            if self.get_usd() < int(usd_amount):
+                return print(f"UNAVAILABLE, REQUIRED BALANCE USD {usd_amount}, AVAILABLE {self.get_usd()}")
+            else:
+                self.write_in_state(round(self.get_usd() - int(usd_amount), 2), "usd_balance")
+                self.write_in_state(round(self.get_uah() + required_usd_amount, 2), "uah_balance")
+
 
 whats_inside = GetFromJson("config.json")
 
@@ -102,3 +116,5 @@ if args["operation"] == "BUY":
 
 # Можем покупать не только целые доллары (int -> float?) !!
 # Можем покупать не только целые гривны (int -> float?) !!
+if args["operation"] == "SELL":
+    whats_inside.sell_usd(args["amount"])
